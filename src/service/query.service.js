@@ -19,6 +19,7 @@ const saveUserProfile = async (
           image: image,
           accessToken: accessToken,
           expiryTime: expiryTime,
+          addition: "!23",
         },
       },
       {

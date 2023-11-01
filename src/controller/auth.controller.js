@@ -59,13 +59,11 @@ const validateCallback = async (req, res) => {
     //generate jwt token
     const token = await services.tokenService.generateJwt({ email });
     //send jwt token to user
-    res
-      .status(200)
-      .json({
-        message: "user successfully autheticated",
-        token,
-        success: true,
-      });
+    res.status(200).json({
+      message: "user successfully autheticated",
+      token,
+      success: true,
+    });
   } catch (err) {
     if (err?.response?.error) console.log(err.response.error);
     else console.log(err);

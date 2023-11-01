@@ -1,7 +1,13 @@
 const jwt = require("jsonwebtoken");
 const verifyToken = (req, res, next) => {
   try {
-    const token = req.body.token;
+    const authorizationHeader = req.headers.authorization;
+    //bearer space token
+    const tokendata = authorizationHeader.split(" ");
+    //tokendata = ["bearer","token"];
+
+    const token = tokendata[1];
+
     console.log({ token });
     jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
       if (err) {
@@ -11,7 +17,9 @@ const verifyToken = (req, res, next) => {
           .json({ message: "user is unauthorised", success: false });
       }
       console.log({ decoded });
-      req.locals = {};
+      req.locals = {}; //This line initializes an empty object req.locals on the req object, which is typically
+      //the request object in a Node.js application. It's used to store data that can be passed between
+      //middleware functions during the request-response cycle.
       req.locals.user = decoded;
       //   req.user = decoded;
       console.log("set user data to request");

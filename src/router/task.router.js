@@ -2,8 +2,13 @@ const express = require("express");
 const authMiddleware = require("../middleware/auth.middleware");
 const authController = require("../controller/task.controller");
 const router = express.Router();
-
-router.post("/create", authMiddleware.verifyToken, authController.createTask);
+const validationMiddleware = require("../middleware/validate.middleware");
+router.post(
+  "/create",
+  validationMiddleware.validate,
+  authMiddleware.verifyToken,
+  authController.createTask
+);
 module.exports = router;
 
 //testing
